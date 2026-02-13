@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#0f0f0f;
+  overflow:hidden;
+  font-family:'Playfair Display', serif;
+}
+
+/* 🌸 PINTEREST BACKGROUND */
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+}
+
+/* FLOATING BLOBS */
+.blob{
+  position:absolute;
+  width:420px;
+  height:420px;
+  border-radius:50%;
+  filter:blur(120px);
+  opacity:.35;
+  animation:float 18s infinite alternate ease-in-out;
+}
+.blob.one{background:#f2b5b5; top:-10%; left:-10%;}
+.blob.two{background:#f6e1c3; bottom:-15%; right:-10%; animation-delay:3s;}
+.blob.three{background:#d7c0f2; top:40%; left:50%; animation-delay:6s;}
+
+@keyframes float{
+  100%{transform:translate(80px,60px)}
+}
+
+/* ❤️ FALLING HEARTS */
+.hearts{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-2;
+}
+
+.heart{
+  position:absolute;
+  top:-10%;
+  font-size:16px;
+  color:rgba(255,120,150,.45);
+  animation:fall linear infinite;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(120vh) rotate(360deg);
+    opacity:0;
+  }
+}
+
+/* STORY BOX */
+.story-box{
+  width:360px;
+  height:640px;
+  background:#fbf4ec;
+  border-radius:32px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.6);
+}
+
+/* PAPER GRAIN */
+.story-box::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+  opacity:.25;
+  pointer-events:none;
+}
+
+/* PROGRESS */
+.story-progress{
+  display:flex;
+  gap:6px;
+  padding:14px;
+}
+.story-progress span{
+  flex:1;
+  height:3px;
+  background:rgba(0,0,0,.15);
+  border-radius:10px;
+  overflow:hidden;
+}
+.story-progress span div{
+  height:100%;
+  width:0%;
+  background:#b85c5c;
+}
+
+/* STORY PAGE */
+.story-page{
+  position:absolute;
+  inset:0;
+  padding:100px 22px 10px;
+  text-align:center;
+  opacity:0;
+  transform:translateY(20px);
+  transition:.9s ease;
+  pointer-events:none;
+}
+.story-page.active{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+.story-page img{
+  width:100%;
+  border-radius:22px;
+  margin-bottom:0px;
+  box-shadow:0 18px 45px rgba(0,0,0,.25);
+  animation:imgFloat 20s ease-in-out infinite;
+}
+@keyframes imgFloat{
+  50%{transform:translateY(-8px)}
+}
+
+.story-page p{
+  font-family:'Dancing Script', cursive;
+  font-size:26px;
+  color:#3b2f2f;
+}
+
+/* ❤️ FINAL PROPOSAL */
+.proposal{
+  background:linear-gradient(180deg,#fff0f3,#fdecef);
+}
+.proposal h1{
+  font-family:'Dancing Script', cursive;
+  font-size:42px;
+  color:#b23a48;
+  margin-bottom:18px;
+  animation:fadeUp 1.5s ease forwards;
+}
+.proposal p{
+  font-size:18px;
+  color:#5a3b3b;
+  animation:fadeUp 2s ease forwards;
+}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(20px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+.tap-zone{
+  position:absolute;
+  inset:0;
+  z-index:10;
+}
+
+#startScreen{
+  position:fixed;
+  inset:0;
+  background:linear-gradient(180deg,#000,#111);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+#startScreen h2{
+  font-family:'Dancing Script', cursive;
+  font-size:34px;
+  color:#fff;
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  50%{transform:scale(1.05)}
+}
+</style>
+</head>
+
+<body>
+
+  <div id="startScreen">
+  <h2>Tap to begin our story ❤️</h2>
+</div>
+
+<!-- 🎶 MUSIC -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="Notun_Premer_Gaan_-lyrical_BallabhpurerRoopkotha_Anirban_Debraj_Surangana_SVFMusic_48KBPS.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🌸 BACKGROUND -->
+<div class="bg">
+  <div class="blob one"></div>
+  <div class="blob two"></div>
+  <div class="blob three"></div>
+</div>
+
+<!-- ❤️ FALLING HEARTS -->
+<div class="hearts" id="hearts"></div>
+
+<div class="story-box">
+  <div class="story-progress">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="story-page active">
+    <img src="pic/pic1.jpeg">
+    <p>I don’t need a perfect world, I just need you in mine.✨</p>
+  </div>
+
+  <div class="story-page">
+    <img src="pic\pic2.jpeg">
+    <p>Your name feels safest when I say it in my heart.🤍</p>
+  </div>
+
+  <div class="story-page">
+    <img src="pic\pic3.jpeg">
+    <p>You’re mine, okay? No returns, no exchanges. 🥺</p>
+  </div>
+
+    <div class="story-page">
+    <img src="pic\pic4.jpeg">
+    <p>Every moment with you feels like home 🕊️</p>
+  </div>
+
+    <div class="story-page">
+    <img src="pic\pic5.jpeg">
+    <p>I choose you-not just today, but in every tomorrow that comes </p>
+  </div>
+
+    <div class="story-page">
+    <img src="pic\pic6.jpg">
+    <p>You’re my favorite notification.🕊️</p>
+  </div>
+
+    <div class="story-page">
+    <img src="pic\pic7.jpeg">
+    <p>You make my heart go ‘boop boop’ 💓😄</p>
+  </div>
+
+    <div class="story-page">
+    <img src="pic\pic8.jpeg">
+    <p>You + Me = my favorite love story. 💞</p>
+  </div>
+
+   <div class="story-page">
+    <img src="pic\pic9.jpeg">
+    <p>Can we be us forever? 🕊️</p>
+  </div>
+
+   <div class="story-page">
+    <img src="pic\pic10.jpeg">
+    <p>Can we be us forever? 🕊️</p>
+  </div>
+
+   <div class="story-page">
+    <img src="pic\pic11.jpeg">
+    <p>Can we be us forever? 🕊️</p>
+  </div>
+  
+  <div class="story-page">
+    <img src="pic\pic12.jpeg">
+    <p>You’re cute… and it’s very distracting.💗</p>
+  </div>
+
+    <div class="story-page">
+    <img src="pic\pic13.jpeg">
+    <p>Can we be us forever? 🕊️</p>
+  </div>
+ 
+  <div class="story-page proposal">
+    <h1>Will You Be My Valentine? ❤️</h1>
+    <p>Not just today… but forever with me ♾️</p>
+  </div>
+
+  <div class="tap-zone"></div>
+</div>
+
+<script>
+/* ❤️ HEART GENERATOR */
+const heartsContainer=document.getElementById("hearts");
+for(let i=0;i<25;i++){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"%";
+  h.style.animationDuration=6+Math.random()*6+"s";
+  h.style.fontSize=12+Math.random()*14+"px";
+  h.style.animationDelay=Math.random()*6+"s";
+  heartsContainer.appendChild(h);
+}
+
+/* STORY + MUSIC */
+
+const pages=document.querySelectorAll('.story-page');
+const bars=document.querySelectorAll('.story-progress span');
+const music=document.getElementById("bgMusic");
+const startScreen=document.getElementById("startScreen");
+
+startScreen.addEventListener("click",()=>{
+  music.volume=0.4;
+  music.play().catch(()=>{});
+  startScreen.style.display="none";
+});
+let index=0, raf, musicStarted=false;
+const duration=4500;
+
+function showStory(i){
+  
+  pages.forEach(p=>p.classList.remove('active'));
+  bars.forEach(b=>b.innerHTML='');
+  cancelAnimationFrame(raf);
+
+  pages[i].classList.add('active');
+  const fill=document.createElement('div');
+  bars[i].appendChild(fill);
+
+  let start=null;
+  function animate(t){
+    if(!start) start=t;
+    let p=Math.min((t-start)/duration*100,100);
+    fill.style.width=p+'%';
+    if(p<100) raf=requestAnimationFrame(animate);
+    else if(index<pages.length-1){
+      index++; showStory(index);
+    }
+  }
+  raf=requestAnimationFrame(animate);
+}
+
+document.querySelector('.tap-zone').onclick=()=>{
+  if(!musicStarted){
+    music.volume=.4;
+    music.play();
+    musicStarted=true;
+  }
+  if(index<pages.length-1){
+    index++; showStory(index);
+  }
+};
+
+showStory(index);
+</script>
+
+</body>
+</html>

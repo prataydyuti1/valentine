@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Something for You ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:radial-gradient(circle at top,#3a0f1f,#120008);
+  font-family:'Playfair Display', serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+}
+
+/* MAIN CARD */
+.wrapper{
+  width:92%;
+  max-width:900px;
+  background:rgba(255,255,255,.06);
+  border-radius:28px;
+  padding:40px 30px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 40px 120px rgba(0,0,0,.6);
+}
+
+h1{
+  text-align:center;
+  font-family:'Dancing Script', cursive;
+  font-size:46px;
+  color:#ff6b8a;
+  margin-bottom:40px;
+}
+
+/* OPTIONS */
+.options{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+}
+
+.card{
+  background:rgba(255,255,255,.08);
+  border-radius:22px;
+  padding:30px 20px;
+  text-align:center;
+  cursor:pointer;
+  transition:.4s;
+  border:1px solid rgba(255,255,255,.1);
+}
+
+.card:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 20px 50px rgba(255,105,135,.35);
+}
+
+.card .icon{
+  font-size:42px;
+  margin-bottom:15px;
+}
+
+.card h3{
+  margin:10px 0 6px;
+  font-size:20px;
+}
+
+.card p{
+  font-size:14px;
+  opacity:.8;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:100;
+}
+
+.modal.active{display:flex}
+
+.modal-box{
+  width:90%;
+  max-width:600px;
+  background:#fff;
+  color:#222;
+  border-radius:22px;
+  padding:30px;
+  position:relative;
+  animation:pop .4s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(.9); opacity:0}
+  to{transform:scale(1); opacity:1}
+}
+
+.close{
+  position:absolute;
+  top:14px;
+  right:18px;
+  font-size:22px;
+  cursor:pointer;
+}
+
+/* LETTER */
+.letter{
+  font-family:'Dancing Script', cursive;
+  font-size:24px;
+  line-height:1.5;
+}
+.modal-box{
+  max-height:80vh;        /* modal never too tall */
+  overflow:hidden;
+}
+
+.letter{
+  max-height:60vh;        /* scroll area */
+  overflow-y:auto;
+  padding-right:10px;
+}
+
+/* smooth scrollbar */
+.letter::-webkit-scrollbar{
+  width:6px;
+}
+.letter::-webkit-scrollbar-thumb{
+  background:#ff6b8a;
+  border-radius:10px;
+}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+.gallery img{
+  width:100%;
+  border-radius:14px;
+}
+
+/* VIDEO */
+video{
+  width:100%;
+  border-radius:16px;
+}
+
+/* 🌸 ROSE DAY GALLERY */
+.rose-card{
+  background:linear-gradient(180deg,#ffd6e0,#fff);
+  text-align:center;
+}
+
+.rose-card h2{
+  font-family:'Dancing Script', cursive;
+  font-size:34px;
+  color:#b23a48;
+}
+
+.rose-text{
+  font-size:14px;
+  color:#555;
+  margin-bottom:20px;
+}
+
+.emoji-gifts{
+  display:flex;
+  justify-content:space-around;
+  margin:25px 0;
+}
+
+.emoji-gifts span{
+  font-size:38px;
+  cursor:pointer;
+  animation:floatEmoji 2s infinite alternate;
+  transition:.3s;
+}
+
+.emoji-gifts span:hover{
+  transform:scale(1.3);
+}
+
+@keyframes floatEmoji{
+  from{transform:translateY(0)}
+  to{transform:translateY(-8px)}
+}
+
+#giftOutput{
+  font-family:'Dancing Script', cursive;
+  font-size:26px;
+  margin-top:15px;
+  animation:pop .5s ease;
+}
+
+@keyframes pop{
+  from{opacity:0; transform:scale(.6)}
+  to{opacity:1; transform:scale(1)}
+}
+
+.float-btn{
+  padding:14px 30px;
+  background:#ff6b8a;
+  color:#fff;
+  border-radius:40px;
+  font-size:17px;
+  text-decoration:none;
+  animation:float 2s ease-in-out infinite;
+  box-shadow:0 12px 30px rgba(255,107,138,.45);
+}
+
+@keyframes float{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+  100%{transform:translateY(0)}
+}
+.love-btn{
+  display:inline-block;
+  margin-top:30px;
+  padding:16px 34px;
+  font-size:18px;
+  font-family:'Playfair Display', serif;
+  color:#fff;
+  text-decoration:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,#ff4d6d,#ff758f);
+  box-shadow:0 15px 35px rgba(255,77,109,.45);
+  position:relative;
+  overflow:hidden;
+  animation:pulse 2.2s infinite;
+}
+
+.love-btn::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:50px;
+  background:rgba(255,255,255,.25);
+  opacity:0;
+  animation:shine 3s infinite;
+}
+
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.05)}
+  100%{transform:scale(1)}
+}
+
+@keyframes shine{
+  0%{opacity:0}
+  40%{opacity:.25}
+  100%{opacity:0}
+}
+
+.love-btn:hover{
+  transform:scale(1.08);
+}
+.fade-btn{
+  opacity:0;
+  animation:fadeIn 2s forwards 1.2s;
+}
+
+@keyframes fadeIn{
+  to{opacity:1}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <h1>Something for You</h1>
+
+  <div class="options">
+    <div class="card" onclick="openModal('gallery')">
+      <div class="icon">🎁</div>
+      <h3>Gift box</h3>
+      <p>gifts for you</p>
+    </div>
+
+    <div class="card" onclick="openModal('letter')">
+      <div class="icon">💌</div>
+      <h3>My Heart</h3>
+      <p>A letter for you</p>
+    </div> 
+
+    <a href="story.html" class="love-btn fade-btn">
+  Open This With Your Heart ❤️
+</a>
+  </div>
+</div>
+
+<!-- ❤️ LETTER MODAL -->
+<div class="modal" id="letter">
+  <div class="modal-box">
+    <div class="close" onclick="closeModal()">✖</div>
+    <div class="letter">
+      My love,<br>
+      This Valentine’s Day, I don’t just want to say I love you—I want to remind you why.<br>
+From the moment you walked into my life, something changed in me. You became my comfort on hard days, my smile on quiet ones, and my strength when I didn’t even know I needed it.
+We’ve made memories that still live in my heart—small moments, silly laughs, long talks, and silent understandings. Every one of them taught me that love isn’t about perfection; it’s about choosing each other, again and again.<br>
+I don’t know what the future holds, but I know this:<br>
+I want to face it with you. 
+I want to grow with you, dream with you, and build a life where love is our constant.<br>
+Thank you for being you. Thank you for loving me the way you do.
+Today, and every day after, my heart chooses you.❤️<br><br>
+Happy Valentine’s Day, my forever, <br>
+With all my love,<br>
+Yours,<br>
+bubu❤️
+    </div>
+  </div>
+</div>
+
+<!-- 📸 GALLERY MODAL -->
+<div class="modal" id="gallery">
+  <div class="modal-box rose-card">
+    <div class="close" onclick="closeModal()">✖</div>
+
+    <h2>special gift of you baby</h2>
+    <p class="rose-text">
+      gifts for the one who makes my world beautiful just by being in it 💖
+    </p>
+
+    <div class="emoji-gifts">
+      <span onclick="giftAction('rose')">🌹</span>
+      <span onclick="giftAction('choco')">🍫</span>
+      <span onclick="giftAction('teddy')">🧸</span>
+      <span onclick="giftAction('hug')">🤗</span>
+    </div>
+
+    <div id="giftOutput"></div>
+  </div>
+</div>
+
+
+<!-- 🎬 STORY MODAL -->
+<div class="modal" id="story">
+  <div class="modal-box">
+    <div class="close" onclick="closeModal()">✖</div>
+    <video controls>
+      <source src="your-video.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+
+<script>
+function openModal(id){
+  document.getElementById(id).classList.add("active");
+}
+
+function closeModal(){
+  document.querySelectorAll('.modal').forEach(m=>m.classList.remove("active"));
+}
+
+function giftAction(type){
+  const out=document.getElementById("giftOutput");
+
+  if(type==="rose"){
+    out.innerHTML="🌹<br>This rose is for you, my love ❤️";
+  }
+  if(type==="choco"){
+    out.innerHTML="🍫<br>Because you make my life sweeter 😋";
+  }
+  if(type==="teddy"){
+    out.innerHTML="🧸<br>So you can hug this when I’m not there 🤍";
+  }
+  if(type==="hug"){
+    out.innerHTML="🤗<br>A warm hug, straight from my heart 🥹";
+  }
+}
+
+</script>
+
+</body>
+</html>
