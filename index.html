@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Asmita ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--css-->
+  <style>
+heart-sparkle {
+  position: fixed;
+  font-size: 20px;
+  opacity: 0.8;
+  animation: sparkle 2.5s linear forwards;
+  pointer-events: none;
+}
+@keyframes sparkle {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-80px) scale(1.5);
+    opacity: 0;
+  }
+}
+/* handwritten name */
+.name-handwritten {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.4rem;
+  color: #7a4a3a;
+  margin-bottom: 8px;
+  animation: floatName 3s ease-in-out infinite;
+}
+@keyframes floatName {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.pinterest-name{
+  font-family: 'Playfair Display', serif;
+  font-size:42px;
+  color:rgb(254, 198, 217);
+  text-shadow: 0 0 25px rgba(255, 170, 200, 0.7);
+  animation: floatText 4s ease-in-out infinite;
+  margin-bottom: 15px;
+  letter-spacing:0px;
+}
+/* delay each letter */
+.pinterest-name span{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(20px);
+    animation:letterRise 0.5s ease forwards;
+  animation-delay: calc(1.4s + var(--i) * 0.12s);
+}
+@keyframes letterRise{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+.pinterest-sub{
+  font-size:30px;
+   margin-top:9px;
+    opacity:0;
+  color:#f48fc7;
+  text-shadow: 0 0 25px rgba(255, 170, 200, 0.7);
+   animation:
+    heartbeat 1.2s ease-in-out infinite 3.8s;
+}
+/* sticker alignment */
+.cute-sticker{
+  width:130px;
+  margin-top:12px;
+  opacity:0;
+  transform:scale(0.5);
+  animation:stickerPop 1s ease forwards;
+  animation-delay:4.5s;
+}
+.cute-sticker{
+  cursor:pointer;
+  transition: transform 0.35s ease, filter 0.35s ease;
+}
+/* hover / tap reaction */
+.cute-sticker:hover{
+  transform: scale(1.08) rotate(-3deg);
+  filter: drop-shadow(0 0 12px rgb(247, 87, 87));
+}
+.cute-sticker:active{
+  transform: scale(1.1) rotate(-4deg);
+  filter: drop-shadow(0 0 14px rgba(255,111,145,0.6));
+}
+@keyframes stickerBounce{
+  0%{ transform: scale(1) rotate(0deg); }
+  30%{ transform: scale(1.12) rotate(-4deg); }
+  60%{ transform: scale(0.98) rotate(2deg); }
+  100%{ transform: scale(1.08) rotate(-3deg); }
+}
+@keyframes fadeIn{
+  to{ opacity:0; }
+}
+@keyframes letterRise{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+@keyframes heartbeat{
+  0%{ transform:scale(1); opacity:.6 }
+  50%{ transform:scale(1.08); opacity:1 }
+  100%{ transform:scale(1); opacity:.6 }
+}
+@keyframes stickerPop{
+  0%{
+    opacity:0;
+    transform:scale(0.5) translateY(10px);
+  }
+  60%{
+    opacity:1;
+    transform:scale(1.1) translateY(-4px);
+  }
+  100%{
+    opacity:1;
+    transform:scale(1) translateY(0);
+  }
+}
+.cute-sticker{
+  margin-top:-6px;
+}
+.valentine-title {
+  font-family: 'Sacramento', cursive;
+  font-size: 3.5rem;
+  font-weight: 400;
+  background: linear-gradient(90deg, #ffb3c6, #ffd6e0, #ffc8dd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 25px rgba(255, 170, 200, 0.7);
+  animation: floatText 4s ease-in-out infinite;
+  margin-bottom: 15px;
+}
+@keyframes floatText {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0); }
+}
+/* Wrapper aligned to text, not screen */
+/* Message icon */
+/* ---------- Message icon + box wrapper ---------- */
+/* wrapper */
+.bubu-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+/* icon */
+.message-icon{
+  width:120px;                /* little bigger */
+  cursor:pointer;
+  transition:transform .3s ease;
+}
+.message-icon:hover{
+  transform:scale(1.1);
+}
+/* container (hidden by default) */
+.message-container{
+  width:270px;
+  height:230px;
+  perspective:1000px;
+  visibility:hidden;     /* instead of display:none */
+  opacity:0;
+  transition:opacity .3s ease;
+}
+.message-container.show{
+  visibility:visible;
+  opacity:1;
+}
+/* card */
+.message-card{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform .9s cubic-bezier(.4,0,.2,1);
+}
+/* faces */
+.message-face{
+  position:absolute;
+    overflow: hidden;
+  width:100%;
+  height:100%;
+  border-radius:18px;
+  backface-visibility:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(247, 103, 137, 0.97);
+  box-shadow:0 12px 28px rgba(0,0,0,.18);
+}
+/* back */
+.message-face.back{
+  transform:rotateY(180deg);
+  padding: 20px;
+}
+/* flipped */
+.message-card.flipped{
+  transform:rotateY(180deg);
+}
+/* image */
+.message-image{
+  width:90%;
+  border-radius:12px;
+}
+/* textarea */
+.message-textarea{
+  width:90%;
+  height:70%;
+  border-radius:12px;
+  padding:10px;
+  border:2px solid #ffb3c6;
+  font-family:'Dancing Script', cursive;
+  font-size:16px;
+  resize:none;
+  outline:none;
+}
+/* Our Story button spacing */
+.story-link{
+  opacity:0;
+  transform: translateY(18px) scale(.95);
+  pointer-events:none;
+}
+/* initially hidden */
+.message-icon,
+.story-link{
+  opacity: 0;
+  transform: translateY(18px) scale(0.95);
+  pointer-events: none;
+}
+/* icon fade-in */
+.message-icon.show{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  transition: 
+    opacity .7s ease,
+    transform .6s cubic-bezier(.4,0,.2,1);
+}
+/* attract animation */
+.message-icon.attention{
+  animation: iconPulse 2.6s ease-in-out infinite;
+}
+/* pulse + tiny ring */
+@keyframes iconPulse{
+  0%{
+    transform: translateY(-6px) scale(1);
+    filter: drop-shadow(0 0 0 rgba(255,120,160,0));
+  }
+  40%{
+    transform: translateY(-8px) scale(1.08) rotate(-2deg);
+    filter: drop-shadow(0 0 10px rgba(255, 145, 120, 0.949));
+  }
+  60%{
+    transform: translateY(-6px) scale(1.03) rotate(2deg);
+  }
+  100%{
+    transform: translateY(-6px) scale(1);
+    filter: drop-shadow(0 0 0 rgba(255,120,160,0));
+  }
+}
+.love-text{
+  font-family: 'Dancing Script', cursive;
+  font-size: 21px;
+  max-height: 100%;
+  overflow-y: auto;
+  padding-right: 6px;
+  letter-spacing: .3px;
+  line-height: 1.2;
+  color: #ffffff;
+}
+.love-text p{
+  opacity: 0;
+  margin-left: auto;
+  transform: translateY(10px);
+  animation: lineReveal 0.8s ease forwards;
+  animation-delay: calc(var(--i) * 0.9s);
+}
+/* soft scrollbar (Pinterest vibe) */
+.love-text::-webkit-scrollbar{
+  width: 4px;
+}
+.love-text::-webkit-scrollbar-thumb{
+  background: rgba(180,120,120,.4);
+  border-radius: 10px;
+}
+@keyframes lineReveal{
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.message-face.back::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:url("https://www.transparenttextures.com/patterns/paper-fibers.png");
+  opacity:0.12;
+  pointer-events:none;
+  border-radius:20px;
+}
+@keyframes lineReveal{
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.star {
+  position: fixed;
+  background: white;
+  border-radius: 50%;
+  opacity: 10;
+  animation: twinkle 2s infinite alternate;
+}
+@keyframes explode {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(0);
+    opacity: 0;
+  }
+}
+.name-handwritten {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.4rem;
+  color: #7a4a3a;
+  margin-bottom: 10px;
+  animation: nameFloat 3s ease-in-out infinite;
+}
+@keyframes nameFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.handwritten p {
+  font-family: 'Dancing Script', cursive;
+}
+    body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at bottom, #10131f 100%);
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
+}
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+  opacity: 0.8;
+}
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-120vh) scale(1.5);
+    opacity: 0;
+  }
+}
+    .container {
+      padding: 30px 15px;
+      max-width: auto;
+      margin: auto;
+    }
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 5px;
+    }
+    h2 {
+      font-weight: 300;
+      margin-top: 0;
+    }
+    /* insta story */
+body{
+  transition: opacity 0.6s ease;
+}
+body.fade-out{
+  opacity:0;
+}
+.story-link{
+  font-family: 'Dancing Script', cursive;
+  margin-top:20px;
+  padding:14px 28px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(135deg,#670303,#f88160);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+.story-link:active{
+  transform:scale(0.92);
+}
+/* Pinterest-style button reveal */
+.story-link.show{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  transition:
+    opacity .7s ease,
+    transform .7s cubic-bezier(.22,1,.36,1),
+    box-shadow .4s ease;
+}
+/* subtle hover elegance */
+.story-link:hover{
+  transform: translateY(-2px) scale(1.03);
+}
+
+  </style>
+</head>
+
+
+<!--html-->
+<body>  
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+  <div class="container">
+<h1 class="valentine-title">
+  <span id="typedText"></span>
+</h1>
+<h2 class="pinterest-name">
+    <span style="--i:1">m</span>
+    <span style="--i:2">y</span>
+    <span style="--i:3">&nbsp;</span>    
+    <span style="--i:4">A</span>
+    <span style="--i:5">s</span>
+    <span style="--i:6">m</span>
+    <span style="--i:7">i</span>
+    <span style="--i:8">t</span>
+    <span style="--i:9">a</span>
+</h2>
+
+<div class="bubu-wrap">
+  <p class="pinterest-sub">♡ Today all about celebrating you and the joy you bring to my life ♡</p>
+  <!-- Message icon -->
+  <img
+    src="pic/letter1.png"
+    class="message-icon"
+    id="messageIcon"
+    alt="message"
+  />
+
+  <!-- Flip message box -->
+<div class="message-container" id="messageContainer">
+<div class="message-card" id="messageCard">
+    <!-- FRONT SIDE -->
+    <div class="message-face front">
+      <img src="pic/love-letter 1.png" class="message-image" />
+    </div>
+
+    <!-- BACK SIDE (YOUR MESSAGE) -->
+    <div class="message-face back">
+        <p class="love-text">
+        3 years ago, you came into my life — and without realizing it, you became my comfort, my happiness, my home ❤️Every smile of yours, every small fight,every moment together…
+        I choose all of it 
+        —I choose you.🕊️
+        </p>
+    </div>
+  </div>
+</div>
+  <!-- Our Story -->
+  <a href="special.html">
+  <button class="story-link"> start the celebration </button>
+  </a>
+</div>
+<!-- Secret Message Box -->
+</section>
+
+
+
+<!--java script--> 
+<!--heart-->
+<script>
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (5 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 7000);
+  }
+
+  setInterval(createHeart, 200);
+</script>
+
+<!--valentine day-->
+<script>
+  const valentineText = "♡ happy valentine’s day ♡";
+  let vtIndex = 0;
+
+  function typeValentine() {
+    if (vtIndex < valentineText.length) {
+      document.getElementById("typedText").innerHTML +=
+        valentineText.charAt(vtIndex);
+      vtIndex++;
+      setTimeout(typeValentine, 120);
+    }
+  }
+window.onload = typeValentine;
+</script>
+
+<!--insta story-->
+<script>
+document.getElementById("ourStory").onclick = function(){
+  document.body.classList.add("fade-out");
+  setTimeout(()=>{
+    window.location.href = "story.html";
+  },600);
+};
+</script>
+
+<!--star-->
+<script>
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement("div");
+    star.className = "star";
+    star.style.width = star.style.height = Math.random() * 2 + 1 + "px";
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.top = Math.random() * 100 + "vh";
+    document.body.appendChild(star);
+  }
+</script>
+
+
+<!--for flip-->
+<script>
+const icon = document.getElementById("messageIcon");
+const container = document.getElementById("messageContainer");
+const card = document.getElementById("messageCard");
+const storyBtn = document.querySelector(".story-link");
+const textarea = document.getElementById("loveMessage");
+
+let opened = false;
+let flipped = false;
+
+icon.addEventListener("click", () => {
+
+  // first open
+  if (!opened) {
+    container.classList.add("show");
+
+    setTimeout(() => {
+      card.classList.toggle("flipped");
+      flipped = true;
+    }, 600);
+
+    setTimeout(() => {
+      storyBtn.classList.add("show");
+    }, 1500);
+
+    opened = true;
+    return;
+  }
+
+  // flip back
+  if (flipped) {
+    card.classList.remove("flipped");
+    flipped = false;
+
+    // 💡 clear message AFTER closing
+    setTimeout(() => {
+      textarea.value = "";
+    }, 600);
+  }
+
+  // flip again
+  else {
+    card.classList.add("flipped");
+    flipped = true;
+  }
+
+});
+</script>
+<script>
+  // timing synced with your current animations
+  // bubu heartbeat starts ~3.8s already
+
+  setTimeout(() => {
+    document.querySelector(".message-icon").classList.add("show");
+  }, 4700); // after bubu appears
+
+  setTimeout(() => {
+    document.querySelector(".story-link").classList.add("show");
+  }, 5600); // classy delayed reveal
+</script>
+
+<!--msg icon-->
+<script>
+const msgIcon = document.getElementById("messageIcon");
+
+/* start attraction AFTER icon becomes visible */
+setTimeout(() => {
+  msgIcon.classList.add("attention");
+}, 200); // synced with your reveal
+
+/* stop animation once clicked */
+msgIcon.addEventListener("click", () => {
+  msgIcon.classList.remove("attention");
+});
+</script>
+
+
+</body>
+</html>
